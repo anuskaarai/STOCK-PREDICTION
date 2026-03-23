@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE_URL = 'http://127.0.0.1:8000';
+let API_BASE_URL = localStorage.getItem('quantEdgeApiUrl') || 'http://127.0.0.1:8000';
 const FORECAST_HOURS = 24;
 
 // DOM Elements
@@ -19,6 +19,17 @@ const nextDirection = document.getElementById('nextDirection');
 
 const chipNextClose = document.getElementById('chipNextClose');
 
+// Modal Elements
+const navHistoryBtn = document.getElementById('navHistoryBtn');
+const navSettingsBtn = document.getElementById('navSettingsBtn');
+const settingsModal = document.getElementById('settingsModal');
+const historyModal = document.getElementById('historyModal');
+const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+const closeHistoryBtn = document.getElementById('closeHistoryBtn');
+const apiUrlInput = document.getElementById('apiUrlInput');
+const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+const historyList = document.getElementById('historyList');
+
 // Chart Instance
 let predictionChart = null;
 let lastPredictions = null;
@@ -31,6 +42,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
     predictBtn.addEventListener('click', handlePrediction);
     exportCsvBtn.addEventListener('click', exportCSV);
+
+    // Settings logic
+    apiUrlInput.value = API_BASE_URL;
+
+    navSettingsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        settingsModal.classList.remove('hidden');
+    });
+
+    closeSettingsBtn.addEventListener('click', () => {
+        settingsModal.classList.add('hidden');
+    });
+
+    saveSettingsBtn.addEventListener('click', () => {
+        const newUrl = apiUrlInput.value.trim();
+        if (newUrl) {
+            API_BASE_URL = newUrl.replace(/\/$/, ""); // Remove trailing slash
+            localStorage.setItem('quantEdgeApiUrl', API_BASE_URL);
+            showToast('Settings saved successfully', 'success');
+            settingsModal.classList.add('hidden');
+        } else {
+            showToast('Please enter a valid URL', 'error');
+        }
+    });
+
+    // History logic
+    navHistoryBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        renderHistory();
+        historyModal.classList.remove('hidden');
+    });
+
+    closeHistoryBtn.addEventListener('click', () => {
+        historyModal.classList.add('hidden');
+    });
+
+    // Close modals on outside click
+    window.addEventListener('click', (e) => {
+        if (e.target === settingsModal) settingsModal.classList.add('hidden');
+        if (e.target === historyModal) historyModal.classList.add('hidden');
+    });
 });
 
 /**
@@ -64,6 +116,8 @@ async function handlePrediction() {
 
         const data = await response.json();
         updateUI(data);
+        // Save to History
+        saveToHistory(ticker, data);
         showToast(`${ticker} forecast generated successfully!`, 'success');
     } catch (error) {
         console.error('Error:', error);
@@ -356,3 +410,71 @@ function showToast(message, type = 'error') {
         setTimeout(() => toast.remove(), 350);
     }, 5000);
 }
+
+/**
+ * Save prediction to local storage history
+ */
+function saveToHistory(ticker, data) {
+    let history = JSON.parse(localStorage.getItem('quantEdgeHistory') || '[]');
+    
+    if (!data || !data.predictions || data.predictions.length === 0) return;
+    
+    const newEntry = {
+        ticker: ticker,
+        date: new Date().toISOString(),
+        predictedClose: data.predictions[0].pred_close,
+        direction: data.predictions[0].close_direction
+    };
+    
+    // Add to beginning
+    history.unshift(newEntry);
+    
+    // Keep only last 20 entries
+    if (history.length > 20) history = history.slice(0, 20);
+    
+    localStorage.setItem('quantEdgeHistory', JSON.stringify(history));
+}
+
+/**
+ * Render history in the modal
+ */
+function renderHistory() {
+    const history = JSON.parse(localStorage.getItem('quantEdgeHistory') || '[]');
+    if (history.length === 0) {
+        historyList.innerHTML = '<p class="empty-state">No past predictions saved on this browser.</p>';
+        return;
+    }
+
+    historyList.innerHTML = history.map(item => {
+        const dateObj = new Date(item.date);
+        const dateStr = dateObj.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' }) + ' ' + 
+                        dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        
+        const trendClass = item.direction === 'UP' ? 'trend-up' : 'trend-down';
+        const trendIcon = item.direction === 'UP' ? 'fa-arrow-up' : 'fa-arrow-down';
+        
+        return `
+            <div class="card" style="margin-bottom: 12px; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; cursor: pointer; transition: all 0.2s ease;" onclick="loadHistoryItem('${item.ticker}')" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                    <strong style="color:var(--text-primary); font-size:16px;">${item.ticker}</strong>
+                    <span style="font-size: 12px; color: var(--text-secondary);"><i class="far fa-clock"></i> ${dateStr}</span>
+                </div>
+                <div style="text-align: right; display:flex; flex-direction:column; gap:4px; align-items:flex-end;">
+                    <span style="font-weight: 600; font-size: 15px;">₹${item.predictedClose.toFixed(2)}</span>
+                    <span class="trend-badge ${trendClass}" style="font-size: 11px; padding: 2px 6px;">
+                        <i class="fas ${trendIcon}" style="font-size:10px;"></i> ${item.direction}
+                    </span>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+/**
+ * Load a ticker from history
+ */
+window.loadHistoryItem = function(ticker) {
+    tickerInput.value = ticker;
+    historyModal.classList.add('hidden');
+    handlePrediction();
+};
