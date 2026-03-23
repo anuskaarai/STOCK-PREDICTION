@@ -1,5 +1,5 @@
 // API Configuration
-let API_BASE_URL = localStorage.getItem('quantEdgeApiUrl') || 'http://127.0.0.1:8000';
+let API_BASE_URL = localStorage.getItem('quantEdgeApiUrl') || 'https://stock-prediction-2-mntn.onrender.com';
 const FORECAST_HOURS = 24;
 
 // DOM Elements
