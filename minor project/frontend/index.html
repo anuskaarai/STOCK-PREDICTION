@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quant-Edge | AI Price Prediction</title>
+    <meta name="description" content="AI-powered stock price prediction dashboard for Indian markets using BiLSTM + XGBoost ensemble model.">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-chart-line accent-icon"></i>
+                <span class="logo-text">Quant-<span>Edge</span></span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active"><i class="fas fa-th-large"></i> Dashboard</a>
+                <a href="#" class="nav-item"><i class="fas fa-history"></i> History</a>
+                <a href="#" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer">
+                <p>AI Model: BiLSTM+XGBoost</p>
+                <div class="status-indicator">
+                    <span class="dot pulse"></span> API Connected
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-nav">
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="tickerInput" placeholder="Enter Ticker (e.g. TCS.NS, RELIANCE.NS)" autocomplete="off">
+                    <button id="predictBtn" class="btn-primary">Predict <i class="fas fa-magic"></i></button>
+                </div>
+                <div class="user-profile">
+                    <div class="profile-info">
+                        <span class="profile-name">Quant-Edge</span>
+                        <span class="profile-role">Indian Markets</span>
+                    </div>
+                    <div class="profile-avatar"><i class="fas fa-chart-bar"></i></div>
+                </div>
+            </header>
+
+            <!-- Quick Stats Row -->
+            <div class="quick-stats" id="quickStats" style="display:none;">
+                <div class="stat-chip">
+                    <div class="stat-chip-icon up"><i class="fas fa-arrow-up"></i></div>
+                    <div class="stat-chip-info">
+                        <span class="stat-chip-label">Next Hour</span>
+                        <span class="stat-chip-value" id="chipNextClose">--</span>
+                    </div>
+                </div>
+
+                <div class="stat-chip">
+                    <div class="stat-chip-icon neutral"><i class="fas fa-clock"></i></div>
+                    <div class="stat-chip-info">
+                        <span class="stat-chip-label">Forecast</span>
+                        <span class="stat-chip-value">24 Hours</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Main Chart Card -->
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <div class="card-title-group">
+                            <h2 id="displayTicker">Predictor Dashboard</h2>
+                            <p id="displayPeriod">24-Hour AI Forecast</p>
+                        </div>
+                        <div class="chart-legend">
+                            <span class="legend-item"><span class="legend-dot hist-close"></span> Past Close</span>
+                            <span class="legend-item"><span class="legend-dot hist-open"></span> Past Open</span>
+                            <span class="legend-item"><span class="legend-dot pred-close"></span> Pred Close</span>
+                            <span class="legend-item"><span class="legend-dot pred-open"></span> Pred Open</span>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="predictionChart"></canvas>
+                        <div id="loader" class="loader-overlay hidden">
+                            <div class="loader-spinner"></div>
+                            <p id="loaderText">Analyzing Market Data...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Sidebar -->
+                <div class="stats-column">
+                    <!-- Metrics Card -->
+                    <div class="card metrics-card">
+                        <h3>Model Performance</h3>
+                        <div class="metric-row">
+                            <span class="metric-label">Val Loss</span>
+                            <span class="metric-value highlight" id="valLoss">--</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Next Prediction Card -->
+                    <div class="card next-pred-card">
+                        <h3>Next Hour Forecast</h3>
+                        <div class="next-price-group">
+                            <span class="label">Expected Close</span>
+                            <span class="price" id="nextClosePrice">--</span>
+                            <span class="direction" id="nextDirection">
+                                <i class="fas fa-minus"></i> --
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Forecast Table Section -->
+            <section class="forecast-section">
+                <div class="section-header">
+                    <h3>Detailed Forecast Log</h3>
+                    <button class="btn-outline btn-sm" id="exportCsvBtn">Export CSV <i class="fas fa-download"></i></button>
+                </div>
+                <div class="card table-card">
+                    <table class="forecast-table">
+                        <thead>
+                            <tr>
+                                <th>Time (Hourly)</th>
+                                <th>Pred Open</th>
+                                <th>Pred Close</th>
+                                <th>Trend</th>
+                            </tr>
+                        </thead>
+                        <tbody id="forecastBody">
+                            <tr>
+                                <td colspan="4" class="empty-state">Enter a ticker and click Predict to see the forecast.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

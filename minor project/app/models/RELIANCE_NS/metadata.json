@@ -1,0 +1,1 @@
+{"ticker": "RELIANCE.NS", "trained_at": 1774284610.779208, "metrics": {"val_loss": 4.2551984786987305, "val_open_dir_accuracy": 0.6819999814033508, "val_close_dir_accuracy": 0.4909999966621399, "train_ret_std_open": 0.2816572837376085, "train_ret_std_close": 0.48062112325499884}}

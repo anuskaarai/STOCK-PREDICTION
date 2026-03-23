@@ -1,0 +1,139 @@
+nohup: ignoring input
+INFO:     Will watch for changes in these directories: ['/home/mr-naitik-anand/Desktop/minor project']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [359433] using WatchFiles
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1773259699.281372  359436 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1773259699.282042  359436 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+I0000 00:00:1773259699.348588  359436 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1773259700.812229  359436 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1773259700.812730  359436 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+INFO:     Started server process [359436]
+INFO:     Waiting for application startup.
+2026-03-12 01:38:21,689 - app.main - INFO - Stock Prediction API starting up...
+INFO:     Application startup complete.
+INFO:     127.0.0.1:52764 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46906 - "OPTIONS /predict/ HTTP/1.1" 200 OK
+2026-03-12 01:42:17,952 - app.services.predictor - INFO - Prediction requested for TCS.NS
+2026-03-12 01:42:17,952 - app.services.data_fetcher - INFO - Fetching data for TCS.NS (period=60d, interval=1h)
+2026-03-12 01:42:18,792 - app.services.data_fetcher - INFO - Fetched 407 rows for TCS.NS
+2026-03-12 01:42:18,792 - app.services.feature_engineer - INFO - Engineering features...
+2026-03-12 01:42:18,815 - app.services.feature_engineer - INFO - Feature engineering complete: 387 rows (dropped 20 NaN rows), 37 features
+2026-03-12 01:42:18,816 - app.services.model_manager - INFO - No cached model for TCS.NS
+2026-03-12 01:42:18,816 - app.services.predictor - INFO - Training required for TCS.NS. This may take a few minutes.
+2026-03-12 01:42:18,816 - app.services.predictor - INFO - Starting training pipeline for TCS.NS
+2026-03-12 01:42:18,846 - app.services.model_builder - INFO - Building model: lookback=24, features=37
+E0000 00:00:1773259938.849589  359591 cuda_platform.cc:52] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: UNKNOWN ERROR (303)
+2026-03-12 01:42:19,164 - app.services.model_builder - INFO - Model built: 243652 parameters
+2026-03-12 01:42:19,164 - app.services.predictor - INFO - Training Keras model...
+2026-03-12 01:42:33,905 - app.services.predictor - INFO - Keras training complete. Val Loss: 3.3698, Val Acc: 0.79
+2026-03-12 01:42:33,906 - app.services.predictor - INFO - Training XGBoost ensemble...
+2026-03-12 01:42:34,878 - app.services.model_manager - INFO - Model artifacts saved for TCS.NS at /home/mr-naitik-anand/Desktop/minor project/app/models/TCS_NS
+2026-03-12 01:42:34,879 - app.services.predictor - INFO - Generating 24-hour forecast for TCS.NS...
+INFO:     127.0.0.1:46918 - "POST /predict/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36718 - "OPTIONS /predict/ HTTP/1.1" 200 OK
+2026-03-12 01:44:43,220 - app.services.predictor - INFO - Prediction requested for RELIANCE.NS
+2026-03-12 01:44:43,220 - app.services.data_fetcher - INFO - Fetching data for RELIANCE.NS (period=60d, interval=1h)
+2026-03-12 01:44:44,320 - app.services.data_fetcher - INFO - Fetched 413 rows for RELIANCE.NS
+2026-03-12 01:44:44,321 - app.services.feature_engineer - INFO - Engineering features...
+2026-03-12 01:44:44,348 - app.services.feature_engineer - INFO - Feature engineering complete: 394 rows (dropped 19 NaN rows), 37 features
+2026-03-12 01:44:44,348 - app.services.model_manager - INFO - No cached model for RELIANCE.NS
+2026-03-12 01:44:44,348 - app.services.predictor - INFO - Training required for RELIANCE.NS. This may take a few minutes.
+2026-03-12 01:44:44,348 - app.services.predictor - INFO - Starting training pipeline for RELIANCE.NS
+2026-03-12 01:44:44,379 - app.services.model_builder - INFO - Building model: lookback=24, features=37
+2026-03-12 01:44:44,590 - app.services.model_builder - INFO - Model built: 243652 parameters
+2026-03-12 01:44:44,590 - app.services.predictor - INFO - Training Keras model...
+2026-03-12 01:45:02,276 - app.services.predictor - INFO - Keras training complete. Val Loss: 4.4046, Val Acc: 0.24
+2026-03-12 01:45:02,276 - app.services.predictor - INFO - Training XGBoost ensemble...
+2026-03-12 01:45:06,937 - app.services.model_manager - INFO - Model artifacts saved for RELIANCE.NS at /home/mr-naitik-anand/Desktop/minor project/app/models/RELIANCE_NS
+2026-03-12 01:45:06,937 - app.services.predictor - INFO - Generating 24-hour forecast for RELIANCE.NS...
+INFO:     127.0.0.1:36726 - "POST /predict/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46666 - "OPTIONS /predict/ HTTP/1.1" 200 OK
+2026-03-12 01:45:30,050 - app.services.predictor - INFO - Prediction requested for TCS.NS
+2026-03-12 01:45:30,051 - app.services.data_fetcher - INFO - Fetching data for TCS.NS (period=60d, interval=1h)
+2026-03-12 01:45:31,232 - app.services.data_fetcher - INFO - Fetched 413 rows for TCS.NS
+2026-03-12 01:45:31,232 - app.services.feature_engineer - INFO - Engineering features...
+2026-03-12 01:45:31,267 - app.services.feature_engineer - INFO - Feature engineering complete: 394 rows (dropped 19 NaN rows), 37 features
+2026-03-12 01:45:31,932 - app.services.model_manager - INFO - Loaded cached model for TCS.NS (age=0.0h)
+2026-03-12 01:45:31,932 - app.services.predictor - INFO - Using cached model for TCS.NS
+2026-03-12 01:45:31,932 - app.services.predictor - INFO - Generating 24-hour forecast for TCS.NS...
+INFO:     127.0.0.1:46682 - "POST /predict/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50600 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51782 - "OPTIONS /predict/ HTTP/1.1" 200 OK
+2026-03-12 01:48:49,150 - app.services.predictor - INFO - Prediction requested for RELIANCE.NS
+2026-03-12 01:48:49,151 - app.services.data_fetcher - INFO - Fetching data for RELIANCE.NS (period=60d, interval=1h)
+2026-03-12 01:48:49,498 - app.services.data_fetcher - INFO - Fetched 406 rows for RELIANCE.NS
+2026-03-12 01:48:49,498 - app.services.feature_engineer - INFO - Engineering features...
+2026-03-12 01:48:49,517 - app.services.feature_engineer - INFO - Feature engineering complete: 387 rows (dropped 19 NaN rows), 37 features
+2026-03-12 01:48:49,896 - app.services.model_manager - INFO - Loaded cached model for RELIANCE.NS (age=0.1h)
+2026-03-12 01:48:49,897 - app.services.predictor - INFO - Using cached model for RELIANCE.NS
+2026-03-12 01:48:49,897 - app.services.predictor - INFO - Generating 24-hour forecast for RELIANCE.NS...
+INFO:     127.0.0.1:51792 - "POST /predict/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35168 - "OPTIONS /predict/ HTTP/1.1" 200 OK
+2026-03-12 01:51:36,000 - app.services.predictor - INFO - Prediction requested for TCS.NS
+2026-03-12 01:51:36,000 - app.services.data_fetcher - INFO - Fetching data for TCS.NS (period=60d, interval=1h)
+2026-03-12 01:51:36,536 - app.services.data_fetcher - INFO - Fetched 407 rows for TCS.NS
+2026-03-12 01:51:36,536 - app.services.feature_engineer - INFO - Engineering features...
+2026-03-12 01:51:36,563 - app.services.feature_engineer - INFO - Feature engineering complete: 387 rows (dropped 20 NaN rows), 37 features
+2026-03-12 01:51:36,942 - app.services.model_manager - INFO - Loaded cached model for TCS.NS (age=0.2h)
+2026-03-12 01:51:36,942 - app.services.predictor - INFO - Using cached model for TCS.NS
+2026-03-12 01:51:36,942 - app.services.predictor - INFO - Generating 24-hour forecast for TCS.NS...
+INFO:     127.0.0.1:35178 - "POST /predict/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49198 - "OPTIONS /predict/ HTTP/1.1" 200 OK
+2026-03-12 01:52:02,327 - app.services.predictor - INFO - Prediction requested for AAPL
+2026-03-12 01:52:02,328 - app.services.data_fetcher - INFO - Fetching data for AAPL (period=60d, interval=1h)
+2026-03-12 01:52:02,722 - app.services.data_fetcher - INFO - Fetched 407 rows for AAPL
+2026-03-12 01:52:02,723 - app.services.feature_engineer - INFO - Engineering features...
+2026-03-12 01:52:02,767 - app.services.feature_engineer - INFO - Feature engineering complete: 388 rows (dropped 19 NaN rows), 37 features
+2026-03-12 01:52:02,767 - app.services.model_manager - INFO - No cached model for AAPL
+2026-03-12 01:52:02,767 - app.services.predictor - INFO - Training required for AAPL. This may take a few minutes.
+2026-03-12 01:52:02,767 - app.services.predictor - INFO - Starting training pipeline for AAPL
+2026-03-12 01:52:02,800 - app.services.model_builder - INFO - Building model: lookback=24, features=37
+2026-03-12 01:52:02,938 - app.services.model_builder - INFO - Model built: 243652 parameters
+2026-03-12 01:52:02,938 - app.services.predictor - INFO - Training Keras model...
+2026-03-12 01:52:17,419 - app.services.predictor - INFO - Keras training complete. Val Loss: 2.3117, Val Acc: 0.34
+2026-03-12 01:52:17,420 - app.services.predictor - INFO - Training XGBoost ensemble...
+2026-03-12 01:52:17,883 - app.services.model_manager - INFO - Model artifacts saved for AAPL at /home/mr-naitik-anand/Desktop/minor project/app/models/AAPL
+2026-03-12 01:52:17,884 - app.services.predictor - INFO - Generating 24-hour forecast for AAPL...
+INFO:     127.0.0.1:49214 - "POST /predict/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55950 - "OPTIONS /predict/ HTTP/1.1" 200 OK
+2026-03-12 22:02:46,527 - app.services.predictor - INFO - Prediction requested for RELIANCE.NS
+2026-03-12 22:02:46,527 - app.services.data_fetcher - INFO - Fetching data for RELIANCE.NS (period=60d, interval=1h)
+2026-03-12 22:02:46,814 - app.services.data_fetcher - INFO - Fetched 406 rows for RELIANCE.NS
+2026-03-12 22:02:46,814 - app.services.feature_engineer - INFO - Engineering features...
+2026-03-12 22:02:46,830 - app.services.feature_engineer - INFO - Feature engineering complete: 387 rows (dropped 19 NaN rows), 37 features
+2026-03-12 22:02:47,546 - app.services.model_manager - INFO - Loaded cached model for RELIANCE.NS (age=20.3h)
+2026-03-12 22:02:47,546 - app.services.predictor - INFO - Using cached model for RELIANCE.NS
+2026-03-12 22:02:47,546 - app.services.predictor - INFO - Generating 24-hour forecast for RELIANCE.NS...
+INFO:     127.0.0.1:55966 - "POST /predict/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45196 - "OPTIONS /predict/ HTTP/1.1" 200 OK
+2026-03-12 22:05:23,433 - app.services.predictor - INFO - Prediction requested for SBI.NS
+2026-03-12 22:05:23,433 - app.services.data_fetcher - INFO - Fetching data for SBI.NS (period=60d, interval=1h)
+2026-03-12 22:05:24,060 - yfinance - ERROR - $SBI.NS: possibly delisted; no price data found  (period=60d)
+2026-03-12 22:05:24,061 - app.routers.predictions - ERROR - Validation error for SBI.NS: No data returned for ticker 'SBI.NS'. Please verify the ticker symbol is correct.
+INFO:     127.0.0.1:45208 - "POST /predict/ HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:35164 - "OPTIONS /predict/ HTTP/1.1" 200 OK
+2026-03-12 22:05:43,187 - app.services.predictor - INFO - Prediction requested for SBIN.NS
+2026-03-12 22:05:43,187 - app.services.data_fetcher - INFO - Fetching data for SBIN.NS (period=60d, interval=1h)
+2026-03-12 22:05:43,724 - app.services.data_fetcher - INFO - Fetched 406 rows for SBIN.NS
+2026-03-12 22:05:43,724 - app.services.feature_engineer - INFO - Engineering features...
+2026-03-12 22:05:43,743 - app.services.feature_engineer - INFO - Feature engineering complete: 387 rows (dropped 19 NaN rows), 37 features
+2026-03-12 22:05:43,744 - app.services.model_manager - INFO - No cached model for SBIN.NS
+2026-03-12 22:05:43,744 - app.services.predictor - INFO - Training required for SBIN.NS. This may take a few minutes.
+2026-03-12 22:05:43,744 - app.services.predictor - INFO - Starting training pipeline for SBIN.NS
+2026-03-12 22:05:43,772 - app.services.model_builder - INFO - Building model: lookback=24, features=37
+2026-03-12 22:05:43,931 - app.services.model_builder - INFO - Model built: 243652 parameters
+2026-03-12 22:05:43,931 - app.services.predictor - INFO - Training Keras model...
+2026-03-12 22:05:56,175 - app.services.predictor - INFO - Keras training complete. Val Loss: 7.7463, Val Acc: 0.27
+2026-03-12 22:05:56,175 - app.services.predictor - INFO - Training XGBoost ensemble...
+2026-03-12 22:05:56,776 - app.services.model_manager - INFO - Model artifacts saved for SBIN.NS at /home/mr-naitik-anand/Desktop/minor project/app/models/SBIN_NS
+2026-03-12 22:05:56,776 - app.services.predictor - INFO - Generating 24-hour forecast for SBIN.NS...
+INFO:     127.0.0.1:35176 - "POST /predict/ HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-03-13 14:46:51,190 - app.main - INFO - Stock Prediction API shutting down...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [359436]
+INFO:     Stopping reloader process [359433]

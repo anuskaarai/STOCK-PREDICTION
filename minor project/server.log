@@ -1,0 +1,118 @@
+nohup: ignoring input
+INFO:     Will watch for changes in these directories: ['/home/mr-naitik-anand/Desktop/minor project']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [354746] using WatchFiles
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1773257860.213471  354751 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1773257860.213879  354751 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+I0000 00:00:1773257860.246285  354751 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1773257861.048458  354751 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1773257861.048777  354751 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+INFO:     Started server process [354751]
+INFO:     Waiting for application startup.
+2026-03-12 01:07:41,548 - app.main - INFO - Stock Prediction API starting up...
+INFO:     Application startup complete.
+INFO:     127.0.0.1:47924 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47156 - "GET /health HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/config.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-03-12 01:27:53,792 - app.main - INFO - Stock Prediction API shutting down...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [354751]
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1773259075.928553  355326 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1773259075.929292  355326 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+I0000 00:00:1773259075.988923  355326 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1773259077.602970  355326 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1773259077.603590  355326 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+INFO:     Started server process [355326]
+INFO:     Waiting for application startup.
+2026-03-12 01:27:58,528 - app.main - INFO - Stock Prediction API starting up...
+INFO:     Application startup complete.
+INFO:     127.0.0.1:48984 - "OPTIONS /predict/ HTTP/1.1" 200 OK
+2026-03-12 01:32:18,388 - app.services.predictor - INFO - Prediction requested for TCS.NS
+2026-03-12 01:32:18,388 - app.services.data_fetcher - INFO - Fetching data for TCS.NS (period=60d, interval=1h)
+2026-03-12 01:32:19,277 - app.services.data_fetcher - INFO - Fetched 407 rows for TCS.NS
+2026-03-12 01:32:19,277 - app.services.feature_engineer - INFO - Engineering features...
+2026-03-12 01:32:19,332 - app.services.feature_engineer - INFO - Feature engineering complete: 387 rows (dropped 20 NaN rows), 37 features
+E0000 00:00:1773259339.343840  355382 cuda_platform.cc:52] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: UNKNOWN ERROR (303)
+2026-03-12 01:32:19,930 - app.services.model_manager - INFO - Loaded cached model for TCS.NS (age=1.1h)
+2026-03-12 01:32:19,931 - app.services.predictor - INFO - Using cached model for TCS.NS
+2026-03-12 01:32:19,931 - app.services.predictor - INFO - Generating 24-hour forecast for TCS.NS...
+INFO:     127.0.0.1:48996 - "POST /predict/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34708 - "OPTIONS /predict/ HTTP/1.1" 200 OK
+2026-03-12 01:32:34,610 - app.services.predictor - INFO - Prediction requested for RELIANCE.NS
+2026-03-12 01:32:34,611 - app.services.data_fetcher - INFO - Fetching data for RELIANCE.NS (period=60d, interval=1h)
+2026-03-12 01:32:34,753 - app.services.data_fetcher - INFO - Fetched 406 rows for RELIANCE.NS
+2026-03-12 01:32:34,753 - app.services.feature_engineer - INFO - Engineering features...
+2026-03-12 01:32:34,796 - app.services.feature_engineer - INFO - Feature engineering complete: 387 rows (dropped 19 NaN rows), 37 features
+2026-03-12 01:32:35,252 - app.services.model_manager - INFO - Loaded cached model for RELIANCE.NS (age=0.8h)
+2026-03-12 01:32:35,252 - app.services.predictor - INFO - Using cached model for RELIANCE.NS
+2026-03-12 01:32:35,252 - app.services.predictor - INFO - Generating 24-hour forecast for RELIANCE.NS...
+INFO:     127.0.0.1:34714 - "POST /predict/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44044 - "OPTIONS /predict/ HTTP/1.1" 200 OK
+2026-03-12 01:33:24,125 - app.services.predictor - INFO - Prediction requested for MRF.NS
+2026-03-12 01:33:24,126 - app.services.data_fetcher - INFO - Fetching data for MRF.NS (period=60d, interval=1h)
+2026-03-12 01:33:24,278 - app.services.data_fetcher - INFO - Fetched 406 rows for MRF.NS
+2026-03-12 01:33:24,278 - app.services.feature_engineer - INFO - Engineering features...
+2026-03-12 01:33:24,337 - app.services.feature_engineer - INFO - Feature engineering complete: 387 rows (dropped 19 NaN rows), 37 features
+2026-03-12 01:33:24,338 - app.services.model_manager - INFO - No cached model for MRF.NS
+2026-03-12 01:33:24,338 - app.services.predictor - INFO - Training required for MRF.NS. This may take a few minutes.
+2026-03-12 01:33:24,338 - app.services.predictor - INFO - Starting training pipeline for MRF.NS
+2026-03-12 01:33:24,429 - app.services.model_builder - INFO - Building model: lookback=24, features=37
+2026-03-12 01:33:24,580 - app.services.model_builder - INFO - Model built: 243652 parameters
+2026-03-12 01:33:24,580 - app.services.predictor - INFO - Training Keras model...
+2026-03-12 01:33:40,623 - app.services.predictor - INFO - Keras training complete. Val Loss: 5.2103, Val Acc: 0.66
+2026-03-12 01:33:40,623 - app.services.predictor - INFO - Training XGBoost ensemble...
+2026-03-12 01:33:41,264 - app.services.model_manager - INFO - Model artifacts saved for MRF.NS at /home/mr-naitik-anand/Desktop/minor project/app/models/MRF_NS
+2026-03-12 01:33:41,265 - app.services.predictor - INFO - Generating 24-hour forecast for MRF.NS...
+INFO:     127.0.0.1:44054 - "POST /predict/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47384 - "OPTIONS /predict/ HTTP/1.1" 200 OK
+2026-03-12 01:34:15,845 - app.services.predictor - INFO - Prediction requested for TCS.NS
+2026-03-12 01:34:15,845 - app.services.data_fetcher - INFO - Fetching data for TCS.NS (period=60d, interval=1h)
+2026-03-12 01:34:15,997 - app.services.data_fetcher - INFO - Fetched 407 rows for TCS.NS
+2026-03-12 01:34:15,997 - app.services.feature_engineer - INFO - Engineering features...
+2026-03-12 01:34:16,035 - app.services.feature_engineer - INFO - Feature engineering complete: 387 rows (dropped 20 NaN rows), 37 features
+2026-03-12 01:34:16,405 - app.services.model_manager - INFO - Loaded cached model for TCS.NS (age=1.1h)
+2026-03-12 01:34:16,405 - app.services.predictor - INFO - Using cached model for TCS.NS
+2026-03-12 01:34:16,405 - app.services.predictor - INFO - Generating 24-hour forecast for TCS.NS...
+INFO:     127.0.0.1:47396 - "POST /predict/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47396 - "OPTIONS /predict/ HTTP/1.1" 200 OK
+2026-03-12 01:34:24,073 - app.services.predictor - INFO - Prediction requested for AAPL
+2026-03-12 01:34:24,074 - app.services.data_fetcher - INFO - Fetching data for AAPL (period=60d, interval=1h)
+2026-03-12 01:34:24,295 - app.services.data_fetcher - INFO - Fetched 407 rows for AAPL
+2026-03-12 01:34:24,296 - app.services.feature_engineer - INFO - Engineering features...
+2026-03-12 01:34:24,358 - app.services.feature_engineer - INFO - Feature engineering complete: 388 rows (dropped 19 NaN rows), 37 features
+2026-03-12 01:34:24,751 - app.services.model_manager - INFO - Loaded cached model for AAPL (age=1.6h)
+2026-03-12 01:34:24,751 - app.services.predictor - INFO - Using cached model for AAPL
+2026-03-12 01:34:24,752 - app.services.predictor - INFO - Generating 24-hour forecast for AAPL...
+INFO:     127.0.0.1:58954 - "POST /predict/ HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'app/services/predictor.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-03-12 01:37:53,272 - app.main - INFO - Stock Prediction API shutting down...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [355326]
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1773259675.437335  359394 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1773259675.438055  359394 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+I0000 00:00:1773259675.495973  359394 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1773259676.941539  359394 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+I0000 00:00:1773259676.941995  359394 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+INFO:     Started server process [359394]
+INFO:     Waiting for application startup.
+2026-03-12 01:37:57,865 - app.main - INFO - Stock Prediction API starting up...
+INFO:     Application startup complete.
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-03-12 01:38:16,129 - app.main - INFO - Stock Prediction API shutting down...
+INFO:     Application shutdown complete.
+INFO:     Finished server process [359394]
+INFO:     Stopping reloader process [354746]
