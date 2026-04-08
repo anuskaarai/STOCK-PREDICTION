@@ -1,5 +1,5 @@
 // API Configuration
-let API_BASE_URL = localStorage.getItem('quantEdgeApiUrl') || 'https://stock-prediction-2-mntn.onrender.com';
+let API_BASE_URL = 'http://127.0.0.1:8000';
 const FORECAST_HOURS = 24;
 
 // DOM Elements
@@ -21,13 +21,8 @@ const chipNextClose = document.getElementById('chipNextClose');
 
 // Modal Elements
 const navHistoryBtn = document.getElementById('navHistoryBtn');
-const navSettingsBtn = document.getElementById('navSettingsBtn');
-const settingsModal = document.getElementById('settingsModal');
 const historyModal = document.getElementById('historyModal');
-const closeSettingsBtn = document.getElementById('closeSettingsBtn');
 const closeHistoryBtn = document.getElementById('closeHistoryBtn');
-const apiUrlInput = document.getElementById('apiUrlInput');
-const saveSettingsBtn = document.getElementById('saveSettingsBtn');
 const historyList = document.getElementById('historyList');
 
 // Chart Instance
@@ -43,30 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     predictBtn.addEventListener('click', handlePrediction);
     exportCsvBtn.addEventListener('click', exportCSV);
 
-    // Settings logic
-    apiUrlInput.value = API_BASE_URL;
-
-    navSettingsBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        settingsModal.classList.remove('hidden');
-    });
-
-    closeSettingsBtn.addEventListener('click', () => {
-        settingsModal.classList.add('hidden');
-    });
-
-    saveSettingsBtn.addEventListener('click', () => {
-        const newUrl = apiUrlInput.value.trim();
-        if (newUrl) {
-            API_BASE_URL = newUrl.replace(/\/$/, ""); // Remove trailing slash
-            localStorage.setItem('quantEdgeApiUrl', API_BASE_URL);
-            showToast('Settings saved successfully', 'success');
-            settingsModal.classList.add('hidden');
-        } else {
-            showToast('Please enter a valid URL', 'error');
-        }
-    });
-
     // History logic
     navHistoryBtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -80,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Close modals on outside click
     window.addEventListener('click', (e) => {
-        if (e.target === settingsModal) settingsModal.classList.add('hidden');
         if (e.target === historyModal) historyModal.classList.add('hidden');
     });
 });

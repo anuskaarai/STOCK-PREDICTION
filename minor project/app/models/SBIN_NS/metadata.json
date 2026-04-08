@@ -1,0 +1,1 @@
+{"ticker": "SBIN.NS", "trained_at": 1775672785.3758304, "metrics": {"val_loss": 6.917654991149902, "val_open_dir_accuracy": 0.5820895433425903, "val_close_dir_accuracy": 0.46268656849861145, "train_ret_std_open": 0.39303437644019895, "train_ret_std_close": 0.750813923459656}}

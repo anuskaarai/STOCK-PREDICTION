@@ -1,1 +1,1 @@
-{"ticker": "TCS.NS", "trained_at": 1774282254.539788, "metrics": {"val_loss": 5.894807815551758, "val_open_dir_accuracy": 0.6320000290870667, "val_close_dir_accuracy": 0.4819999933242798, "train_ret_std_open": 0.23771278380331717, "train_ret_std_close": 0.464776830886409}}
+{"ticker": "TCS.NS", "trained_at": 1775669692.1459005, "metrics": {"val_loss": 6.1455559730529785, "val_open_dir_accuracy": 0.6399999856948853, "val_close_dir_accuracy": 0.49300000071525574, "train_ret_std_open": 0.23881325659766378, "train_ret_std_close": 0.46750638718797555}}
